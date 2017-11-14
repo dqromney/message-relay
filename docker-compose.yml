@@ -1,0 +1,39 @@
+version: '2.1' # Yml version
+services:
+
+# This file is intended for "local" or use on developer workstations.
+  mr-api:
+    container_name: mr-api
+    extends: 
+      file: ./docker-compose.base.yml
+      service: mr-api
+    environment:
+      # Uncomment to debug.  
+      # Change suspend=y to have it wait until debugger is connected before starting.
+      # Change the address=5005 to desired port (make sure it matches the exposed port in ports section
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,address=5005,server=y,suspend=n
+      - SPRING_PROFILES_ACTIVE=local
+      # Work around the fact that "localhost" in the container means the container, not the host
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mr-mysql:3306/messagerelay?useSSL=false
+      # - SPRING_MAIL_HOST=on-smtp
+      #- LOGGING_LEVEL_ROOT=debug
+    links:
+      - mr-mysql
+    ports:
+      - "8080:8080"
+       # Uncomment to debug
+      - "5005:5005"
+
+  mr-mysql:
+    environment:
+      - MYSQL_DATABASE=messagerelay
+      - MYSQL_USER=messagerelay
+      - MYSQL_PASSWORD=messagerelayPW!
+      - MYSQL_ROOT_PASSWORD=SuperSecretPassword!@
+    extends:
+      file: ./docker-compose.base.yml
+      service: mr-mysql
+    ports:
+      - "3316:3306"
+    volumes:
+      - ./mysql-data:/var/lib/mysql
