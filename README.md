@@ -7,4 +7,4 @@ Build an application that uses core technologies that are part of the STG's Java
 #### How to stop the Docker MySQL database
     docker-compose down
 #### How to build mr-api
-    docker build -f src/main/docker/Dockefile .    
+    docker build -f src/main/docker/Dockerfile .    
