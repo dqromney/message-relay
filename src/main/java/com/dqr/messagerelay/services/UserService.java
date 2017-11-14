@@ -17,14 +17,18 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
+    /**
+     * Add User if not exists and return user object.
+     *
+     * @param userInfo the {@link UserInfo} object
+     * @return the populated {@link User} object
+     */
     public User addUser(UserInfo userInfo) {
         validateNewUser(userInfo);
 
         // If user does not exist in system, create new user record
-        boolean isExistingUser = true;
         User user = userDao.findByEmail(userInfo.getEmail());
         if (user == null) {
-            isExistingUser = false;
             user = createNewUser(userInfo);
         }
         return user;
@@ -33,17 +37,17 @@ public class UserService {
     /**
      * Create a new user.
      *
-     * @param dto the populated {@Link New User} object
+     * @param userInfo the populated {@Link UserInfo} object
      * @return a persisted {@Link User} object.
      */
-    public User createNewUser(UserInfo dto) {
+    public User createNewUser(UserInfo userInfo) {
 
         User user = new User();
-        user.setFirstName(dto.getFirstName());
-        user.setLastName(dto.getLastName());
-        user.setEmail(dto.getEmail());
-        user.setUsername(dto.getUsername());
-        user.setActive(dto.getActive());
+        user.setFirstName(userInfo.getFirstName());
+        user.setLastName(userInfo.getLastName());
+        user.setEmail(userInfo.getEmail());
+        user.setUsername(userInfo.getUsername());
+        user.setActive(userInfo.getActive());
 
         // Save user to database and return saved version
         return userDao.save(user);
@@ -57,13 +61,13 @@ public class UserService {
         Pattern emailPattern = Pattern.compile(emailRegex);
 
         new Validator()
-                .required(dto.getFirstName(), "firstName", "field.blank")
-                .required(dto.getLastName(), "lastName", "field.blank")
-                .required(dto.getEmail(), "email", "field.blank")
-                .required(dto.getUsername(), "username", "field.blank")
-                .required(dto.getActive(), "active", "field.blank")
-                .validate(dto.getEmail(), e -> emailPattern.matcher(e).matches(), "email", "newuser.email.invalid")
-                .finish();
+            .required(dto.getFirstName(), "firstName", "field.blank")
+            .required(dto.getLastName(), "lastName", "field.blank")
+            .required(dto.getEmail(), "email", "field.blank")
+            .required(dto.getUsername(), "username", "field.blank")
+            .required(dto.getActive(), "active", "field.blank")
+            .validate(dto.getEmail(), e -> emailPattern.matcher(e).matches(), "email", "newuser.email.invalid")
+            .finish();
     }
 
 }

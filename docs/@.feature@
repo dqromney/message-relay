@@ -1,0 +1,19 @@
+Feature: Message Relay Web application.
+  This application is an STG technical challenge for Java consultants. It is used to determine any needs of a
+  consultant's skill level. This project is to be peer reviewed by the Java Practice Manager to determine any
+  deficiencies in skills that could be improved upon.
+
+  Business rules that govern the scope of the feature
+  Any additional information that will make the feature easier to understand
+
+  Scenario: Some determinable business situation
+    Given some precondition
+      And some other precondition
+    When some action by the actor
+      And some other action
+      And yet another action
+    Then some testable outcome is achieved
+      And something else we can check happens too
+
+  Scenario: A different situation
+    ...
