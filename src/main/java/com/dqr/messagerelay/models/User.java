@@ -16,10 +16,10 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column("first_name", nullable = false)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column("last_name", nullable = false,)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @Column(nullable = false)
@@ -35,11 +35,11 @@ public class User implements Serializable {
         // Empty
     }
 
-    public User(String firstName, String lastName, String email, boolean active) {
+    public User(String firstName, String lastName, String email, String username, boolean active) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.username = username;
         this.active = active;
     }
-
 }
