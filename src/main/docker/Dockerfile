@@ -1,4 +1,3 @@
-# Cryto Currency Poloniex Data Receiver - Dockerfile
 # Image: https://hub.docker.com/_/openjdk/
 FROM openjdk:8-jre-alpine
 
