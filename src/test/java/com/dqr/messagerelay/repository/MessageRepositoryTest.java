@@ -1,5 +1,7 @@
 package com.dqr.messagerelay.repository;
 
+import com.dqr.messagerelay.models.Message;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -18,5 +20,11 @@ public class MessageRepositoryTest {
     @Autowired
     private MessageRepository repository;
 
+    private Message goodMessage;
+
+    @Before
+    public void init() {
+        goodMessage = new Message();
+    }
 
 }
