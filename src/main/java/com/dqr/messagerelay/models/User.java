@@ -1,6 +1,8 @@
 package com.dqr.messagerelay.models;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,15 +19,19 @@ public class User implements Serializable {
     private long id;
 
     @Column(name = "first_name", nullable = false)
+    @NotEmpty
     private String firstName;
 
     @Column(name = "last_name", nullable = false)
+    @NotEmpty
     private String lastName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
+    @NotEmpty @Email
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
+    @NotEmpty
     private String username;
 
     @Column(nullable = false, columnDefinition = "TINYINT", length = 1)

@@ -1,6 +1,6 @@
 package com.dqr.messagerelay.services;
 
-import com.dqr.messagerelay.dao.UserDao;
+import com.dqr.messagerelay.repository.UserRepository;
 import com.dqr.messagerelay.dto.UserInfo;
 import com.dqr.messagerelay.models.User;
 import com.dqr.messagerelay.validation.Validator;
@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 public class UserService {
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     /**
      * Add User if not exists and return user object.
@@ -27,7 +27,7 @@ public class UserService {
         validateNewUser(userInfo);
 
         // If user does not exist in system, create new user record
-        User user = userDao.findByEmail(userInfo.getEmail());
+        User user = userRepository.findByEmail(userInfo.getEmail());
         if (user == null) {
             user = createNewUser(userInfo);
         }
@@ -50,7 +50,7 @@ public class UserService {
         user.setActive(userInfo.getActive());
 
         // Save user to database and return saved version
-        return userDao.save(user);
+        return userRepository.save(user);
     }
 
     // ----------------------------------------------------------------

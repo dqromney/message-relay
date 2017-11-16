@@ -24,8 +24,10 @@ public class HelloControllerTest {
 
     @Test
     public void getHello() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON))
+        String json = "{\n  \"_links\" : {\n    \"users\" : {\n      \"href\" : \"http://localhost/users{?page,size,sort}\",\n      \"templated\" : true\n    },\n    \"profile\" : {\n      \"href\" : \"http://localhost/profile\"\n    }\n  }\n}";
+        mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("Greetings from Spring Boot!")));
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(content().string(equalTo(json)));
     }
 }

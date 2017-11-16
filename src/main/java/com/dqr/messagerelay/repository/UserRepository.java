@@ -1,13 +1,15 @@
-package com.dqr.messagerelay.dao;
+package com.dqr.messagerelay.repository;
 
 import com.dqr.messagerelay.models.User;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
+import org.springframework.stereotype.Component;
 
+@Component
 @RepositoryRestResource(collectionResourceRel = "users", path = "users")
-public interface UserDao extends PagingAndSortingRepository<User, Long> {
+public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
     @Override
     @RestResource(exported = false)
